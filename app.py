@@ -37,7 +37,7 @@ def sparkhook():
             sparkMsgPersonEmail = str(sparkMessage.personEmail) # Get message personEmail
 
             if "hello" in sparkMsgText: #Replies to the message hello
-                textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, HELLO!!!!!!'
+                textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '> please @mention me with help'
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
             elif "help" in sparkMsgText: #Replies to the message help
@@ -45,7 +45,7 @@ def sparkhook():
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer, files=["https://raw.githubusercontent.com/Robert-Ecke83/ethcon-invitebot/master/invite.csv"])
             
             elif "about" in sparkMsgText: #Replies to the message about
-                textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, \n - Here you can find the code: https://github.com/Robert-Ecke83/ethcon-invitebot \n - recke@ethcon.de'
+                textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, \n - Here you can find the code: https://github.com/Robert-Ecke83/ethcon-invitebot \n - recke@ethcon.dem'
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
             
             else:
