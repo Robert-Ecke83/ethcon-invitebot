@@ -37,11 +37,11 @@ def sparkhook():
             sparkMsgPersonEmail = str(sparkMessage.personEmail) # Get message personEmail
 
             if "hello" in sparkMsgText: #Replies to the message hello
-                textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '> please @mention me with help'
+                textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '> please @mention me with help'
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
             elif "help" in sparkMsgText: #Replies to the message help
-                textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, I will help you to Invite People to a Spark Space or Team: \n - In order to invite people into a space prepare a *.csv and send to me via @mention into the space you want the people to be added \n - If you want me to add people to a Team I need to be **Moderator** in that specific general Team Space \n - Attached you find a example *.csv make sure people in the *.csv are **not** already in the space\team \n - I will **only** work for MeetingZone Employees \n - If you want to know more about me @mention me with **about**'
+                textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, I will help you to Invite People to a Spark Space or Team: \n - In order to invite people into a space prepare a *.csv and send to me via @mention into the space you want the people to be added \n - If you want me to add people to a Team I need to be **Moderator** in that specific general Team Space \n - Attached you find a example *.csv make sure people in the *.csv are **not** already in the space\team \n - If you want to know more about me @mention me with **about**'
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer, files=["https://raw.githubusercontent.com/Robert-Ecke83/ethcon-invitebot/master/invite.csv"])
             
             elif "about" in sparkMsgText: #Replies to the message about
@@ -69,14 +69,15 @@ def sparkhook():
                             # If the file extension is CSV
                             if str(getResponse.headers['Content-Type']) == 'text/csv':
                                 decodedContent = getResponse.content.decode('utf-8')
-                                csvFile = csv.reader(decodedContent.splitlines(), delimiter=';')
+                                csvFile = csv.reader(decodedContent.splitlines(), delimiter=',')
                                 listEmails = list(csvFile)
                                 textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, I will start the Invite now' #Message to Room Invite will start
                                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
                                 for row in listEmails: # Creating one list for each line in the file
                                     if i != 0:
                                         participantAdded = api.memberships.create(roomId=sparkMsgRoomId, personEmail=str(row[2]), isModerator=False) # Add participant from e-mail field
-                                       i += 1
+                                        
+                                    i += 1
                                     
                             else:   # If the attached file is not a CSV
                                 textAnswer = 'Sorry, I only understand **CSV** files, please @mention me with **help** to find out how to use me'
