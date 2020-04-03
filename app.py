@@ -47,7 +47,7 @@ def sparkhook():
 
             else:
 
-                 if "@meetingzone.com" in sparkMsgPersonEmail: # Check if the Message comes from a @meetingzone.com domain
+                 if "@" in sparkMsgPersonEmail: # Check if the Message comes from a @meetingzone.com domain
 
                     if not sparkMessage.files: #IF there is no CSV file attached use help
                         textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '> I´m missing the *.CSV please @mention me with help to find out how to use me'
