@@ -41,7 +41,7 @@ def sparkhook():
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
             elif "help" in sparkMsgText: #Replies to the message help
-                textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, I will help you to Invite People to a Spark Space or Team: \n - In order to invite people into a space prepare a *.csv and send to me via @mention into the space you want the people to be added \n - If you want me to add people to a Team I need to be **Moderator** in that specific general Team Space \n - Attached you find a example *.csv \n - **make sure people in the list are not already in the Space/Team** \n - If you want to know more about me @mention me with **about**'
+                textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, I will help you to Invite People to a Webex Teams Space or Team: \n - In order to invite people into a space prepare a *.csv and send to me via @mention into the space you want the people to be added \n - If you want me to add people to a Team I need to be **Moderator** in that specific general Team Space \n - Attached you find a example *.csv \n - **make sure people in the list are not already in the Space/Team**'
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer, files=["https://raw.githubusercontent.com/Robert-Ecke83/ethcon-invitebot/master/invite.csv"])
             
             elif "about" in sparkMsgText: #Replies to the message about
@@ -84,7 +84,7 @@ def sparkhook():
                                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
                  else:
-                    textAnswer = 'Sorry, I´m only allowed to invite people for MeetingZone Employes.'
+                    textAnswer = 'Sorry, I´m only allowed to invite people for Ethcon'
                     botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
     return 'OK'
