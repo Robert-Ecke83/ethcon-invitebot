@@ -37,7 +37,7 @@ def sparkhook():
             sparkMsgPersonEmail = str(sparkMessage.personEmail) # Get message personEmail
 
             if "hello" in sparkMsgText: #Replies to the message hello
-                textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '> please @mention me with help'
+                textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '> please @mention me with help'
                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
 
             elif "help" in sparkMsgText: #Replies to the message help
@@ -69,7 +69,7 @@ def sparkhook():
                             # If the file extension is CSV
                             if str(getResponse.headers['Content-Type']) == 'text/csv':
                                 decodedContent = getResponse.content.decode('utf-8')
-                                csvFile = csv.reader(decodedContent.splitlines(), delimiter=',')
+                                csvFile = csv.reader(decodedContent.splitlines(), delimiter=';')
                                 listEmails = list(csvFile)
                                 textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, I will start the Invite now' #Message to Room Invite will start
                                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
