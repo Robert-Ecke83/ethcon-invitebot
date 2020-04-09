@@ -7,7 +7,7 @@ import csv
 app = Flask(__name__)
 
 
-BOT_TOKEN = 'token'
+BOT_TOKEN = 'MDIzM2I1Y2ItYjM4MS00ZjkzLWIyZjctNjkyNDQzNDcyZDBjY2QzYmU0MWYtMDZm_PF84_consumer'
 
 api = CiscoSparkAPI(access_token=BOT_TOKEN)
 
