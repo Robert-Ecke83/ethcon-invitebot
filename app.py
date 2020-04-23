@@ -71,12 +71,13 @@ def sparkhook():
                             # If the file extension is CSV
                             if str(getResponse.headers['Content-Type']) == 'text/csv':
                                 decodedContent = getResponse.content.decode('utf-8')
-                                listEmails = list(decodedContent)
+                                csvFile = csv.reader(decodedContent.splitlines(), delimiter=';')
+                                listEmails = list(csvFile)
                                 textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, I will start the Invite now' #Message to Room Invite will start
                                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
-                                for email in listEmails: # Creating one list for each line in the file
+                                for row in listEmails: # Creating one list for each line in the file
                                     try:
-                                        api.memberships.create(roomId=sparkMsgRoomId, personEmail=email)
+                                        api.memberships.create(roomId=sparkMsgRoomId, personEmail=str(row[2])
                                         
                                     except exceptions.ApiError as e:
                                         if e.response.status_code == 409:
