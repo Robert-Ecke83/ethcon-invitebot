@@ -77,7 +77,7 @@ def sparkhook():
                                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
                                 for email in listEmails: # Creating one list for each line in the file
                                     try:
-                                        api.team_memberships.create(roomId=sparkMsgRoomId, personEmail=email)
+                                        api.memberships.create(roomId=sparkMsgRoomId, personEmail=email)
                                         
                                     except exceptions.ApiError as e:
                                         if e.response.status_code == 409:
