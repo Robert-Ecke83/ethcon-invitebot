@@ -62,7 +62,7 @@ def sparkhook():
                     else:
                         sparkMsgFileUrl = str(sparkMessage.files[0]) # Get the URL of the first file
                         
-                        sparkHeader = {'Authorization': "Bearer " + BOT_TOKEN}
+                        sparkHeader = {'Authorization': "Bearer " + token}
                         i = 0 # Index to skip first row in the CSV file
 
                         with requests.Session() as s: # Creating a session to allow several HTTP messages with one TCP connection
@@ -75,11 +75,14 @@ def sparkhook():
                                 listEmails = list(csvFile)
                                 textAnswer = 'Hello <@personEmail:' + str(jsonAnswer['data']['personEmail']) + '>, I will start the Invite now' #Message to Room Invite will start
                                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
-                                for row in listEmails: # Creating one list for each line in the file
-                                    if i != 0:
-                                        participantAdded = api.memberships.create(roomId=sparkMsgRoomId, personEmail=str(row[2]), isModerator=False) # Add participant from e-mail field
+                                for email in listEmails: # Creating one list for each line in the file
+                                    try:
+                                        api.team_memberships.create(target_team.id, personEmail=email, isModerator=are_moderators)
                                         
-                                    i += 1
+                                    except exceptions.ApiError as e:
+                                        if e.response.status_code == 409:
+                                        textAnswer = ' {email}was already a member of the space. Skipping..')    
+                                        botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
                                     
                             else:   # If the attached file is not a CSV
                                 textAnswer = 'Sorry, I only understand **CSV** files, please @mention me with **help** to find out how to use me'
