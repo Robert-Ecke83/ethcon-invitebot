@@ -77,11 +77,11 @@ def sparkhook():
                                 botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
                                 for email in listEmails: # Creating one list for each line in the file
                                     try:
-                                        api.team_memberships.create(target_team.id, personEmail=email, isModerator=are_moderators)
+                                        api.team_memberships.create(roomId=sparkMsgRoomId, personEmail=email)
                                         
                                     except exceptions.ApiError as e:
                                         if e.response.status_code == 409:
-                                            textAnswer = 'was already a member of the space. Skipping..'    
+                                            textAnswer = 'was already a member of the space. Skipping..'   
                                             botAnswered = api.messages.create(roomId=sparkMsgRoomId, markdown=textAnswer)
                                     
                             else:   # If the attached file is not a CSV
