@@ -1,4 +1,3 @@
-from flask import Flask, request
 from webexteamssdk import WebexTeamsAPI
 from webexteamssdk import exceptions
 import argparse
